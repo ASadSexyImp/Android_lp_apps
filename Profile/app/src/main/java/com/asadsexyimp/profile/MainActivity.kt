@@ -1,8 +1,8 @@
-package com.asadsexyimp.sound
+package com.asadsexyimp.profile
 
-import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -11,10 +11,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val mediaPlayer = MediaPlayer.create(this, R.raw.taiko)
+        myImageView.visibility = View.INVISIBLE
+        myText.visibility = View.INVISIBLE
 
-        imageView.setOnClickListener{
-            mediaPlayer.start()
+        myNameButton.setOnClickListener {
+            myImageView.visibility = View.VISIBLE
+            myText.visibility = View.VISIBLE
         }
     }
 }
