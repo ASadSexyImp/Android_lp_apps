@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="寿司"
-        android:textSize="40"
+        android:textSize="40sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/myImageView" />
@@ -31,13 +31,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_marginTop="60dp"
+        android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@+id/myText">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/myNameButton"
@@ -47,13 +48,40 @@
                 android:background="#1AEBC0"
                 android:text="なまえ"
                 android:textColor="#FFFFFF" />
+
+            <Button
+                android:id="@+id/myLikeSportsButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#26EAB2"
+                android:text="スポーツ"
+                android:textColor="#FFFFFF" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
+            <Button
+                android:id="@+id/myLikeFoodsButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#26EAB2"
+                android:text="好きな食べ物"
+                android:textColor="#FFFFFF" />
+
+            <Button
+                android:id="@+id/myLikeHobbyButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#26EAB2"
+                android:text="趣味"
+                android:textColor="#FFFFFF" />
         </LinearLayout>
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
