@@ -1,6 +1,7 @@
 package com.asadsexyimp.rockpaperscissors
 
 import android.os.Bundle
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentActivity
 import kotlinx.android.synthetic.main.activity_main.*
@@ -15,26 +16,37 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
     }
 
-    override fun onRestart() {
-        super.onRestart()
+    override fun onStart() {
+        super.onStart()
+
+        button.layoutParams.width = cpu.hp*50
+        button2.layoutParams.width = player.hp*50
 
         imageView.setOnClickListener {
             player.rock()
             cpu.randomnum()
             fight(player, cpu)
+
+            print(player.status)
+            println(cpu.status)
         }
         imageView2.setOnClickListener {
             player.scissors()
             cpu.randomnum()
             fight(player, cpu)
+
+            print(player.status)
+            println(cpu.status)
         }
         imageView.setOnClickListener {
             player.paper()
             cpu.randomnum()
             fight(player, cpu)
+
+            print(player.status)
+            println(cpu.status)
         }
 
         when (player.status) {
@@ -53,6 +65,10 @@ class MainActivity : AppCompatActivity() {
 
         if(count.x == 5){
             count = Vector3(0,0,0)
+            player.hp = 5
+            cpu.hp = 5
+        }else{
+            textView5.text = count.x.toString()+"勝"+count.y.toString()+"敗" +count.z.toString()+"引き分け"
         }
 
     }
@@ -60,16 +76,18 @@ class MainActivity : AppCompatActivity() {
     fun fight(player: Player, cpu: Player){
         when {
             player.status == cpu.status ->  {
-                textView.text = "ひきわけ！！！"
-                count + Vector3(0,0,1)
+                status.text = "ひきわけ！！！"
+                count.plus(Vector3(0,0,1))
             }
             (player.status == "Rock" && cpu.status == "Scissors") || (player.status == "Scissors" && cpu.status == "Paper") || (player.status == "Paper" && cpu.status == "Rock") -> {
-                textView.text = "かち！！！"
-                count + Vector3(1,0,0)
+                status.text = "かち！！！"
+                count.plus(Vector3(1,0,0))
+                cpu.lose()
             }
             else -> {
-                textView.text = "まけ！！！"
-                count + Vector3(0,1,0)
+                status.text = "まけ！！！"
+                count.plus(Vector3(0,1,0))
+                player.lose()
             }
         }
 

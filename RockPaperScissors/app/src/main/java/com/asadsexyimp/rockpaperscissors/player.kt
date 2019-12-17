@@ -31,7 +31,6 @@ class Player (status: String = "Rock", hp: Int = 5, name: String = "Mr.president
         }
     }
 
-
     fun lose() {
         this.hp -= 1
     }
