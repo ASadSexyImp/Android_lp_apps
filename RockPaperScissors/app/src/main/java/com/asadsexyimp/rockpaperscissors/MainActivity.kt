@@ -1,5 +1,6 @@
 package com.asadsexyimp.rockpaperscissors
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -13,21 +14,21 @@ class MainActivity : AppCompatActivity() {
     var cpu: Player = Player(name="CPU")
     var count: Vector3 = Vector3(0,0,0)
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-    }
 
-    override fun onStart() {
-        super.onStart()
 
-        button.layoutParams.width = cpu.hp*50
-        button2.layoutParams.width = player.hp*50
+        button.layoutParams.width = cpu.hp * 50
+        button2.layoutParams.width = player.hp * 50
 
         imageView.setOnClickListener {
             player.rock()
             cpu.randomnum()
             fight(player, cpu)
+            setStatus()
 
             print(player.status)
             println(cpu.status)
@@ -36,18 +37,27 @@ class MainActivity : AppCompatActivity() {
             player.scissors()
             cpu.randomnum()
             fight(player, cpu)
+            setStatus()
 
             print(player.status)
             println(cpu.status)
         }
-        imageView.setOnClickListener {
+        imageView3.setOnClickListener {
             player.paper()
             cpu.randomnum()
             fight(player, cpu)
+            setStatus()
 
             print(player.status)
             println(cpu.status)
         }
+    }
+
+
+    fun setStatus() {
+
+        // move page
+        val retryintent: Intent = Intent(this, RetryActivity::class.java)
 
         when (player.status) {
             "Rock" -> imageView4.setImageResource(R.drawable.goo2)
@@ -63,10 +73,11 @@ class MainActivity : AppCompatActivity() {
             else -> imageView4.setImageResource(R.drawable.goo2)
         }
 
-        if(count.x == 5){
+        if(count.x == 5 || count.y == 5){
             count = Vector3(0,0,0)
             player.hp = 5
             cpu.hp = 5
+            startActivity(retryintent)
         }else{
             textView5.text = count.x.toString()+"勝"+count.y.toString()+"敗" +count.z.toString()+"引き分け"
         }
@@ -77,16 +88,16 @@ class MainActivity : AppCompatActivity() {
         when {
             player.status == cpu.status ->  {
                 status.text = "ひきわけ！！！"
-                count.plus(Vector3(0,0,1))
+                count = count.plus(Vector3(0,0,1))
             }
             (player.status == "Rock" && cpu.status == "Scissors") || (player.status == "Scissors" && cpu.status == "Paper") || (player.status == "Paper" && cpu.status == "Rock") -> {
                 status.text = "かち！！！"
-                count.plus(Vector3(1,0,0))
+                count = count.plus(Vector3(1,0,0))
                 cpu.lose()
             }
             else -> {
                 status.text = "まけ！！！"
-                count.plus(Vector3(0,1,0))
+                count = count.plus(Vector3(0,1,0))
                 player.lose()
             }
         }
