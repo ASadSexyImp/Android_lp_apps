@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -20,9 +21,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
-        button.layoutParams.width = cpu.hp * 50
-        button2.layoutParams.width = player.hp * 50
+        button4.isVisible = false
 
         imageView.setOnClickListener {
             player.rock()
@@ -51,13 +50,18 @@ class MainActivity : AppCompatActivity() {
             print(player.status)
             println(cpu.status)
         }
+        button4.setOnClickListener{
+            button4.isVisible = false
+        }
+
     }
 
 
     fun setStatus() {
 
-        // move page
-        val retryintent: Intent = Intent(this, RetryActivity::class.java)
+        button.layoutParams.width = cpu.hp * 50
+        button2.layoutParams.width = player.hp * 50
+
 
         when (player.status) {
             "Rock" -> imageView4.setImageResource(R.drawable.goo2)
@@ -74,10 +78,18 @@ class MainActivity : AppCompatActivity() {
         }
 
         if(count.x == 5 || count.y == 5){
+            button4.isVisible = true
+            if(count.x == 5){
+                button4.text = "Win!"
+            }else{
+                button4.text = "Lose"
+            }
+
             count = Vector3(0,0,0)
             player.hp = 5
             cpu.hp = 5
-            startActivity(retryintent)
+            textView5.text = count.x.toString()+"勝"+count.y.toString()+"敗" +count.z.toString()+"引き分け"
+
         }else{
             textView5.text = count.x.toString()+"勝"+count.y.toString()+"敗" +count.z.toString()+"引き分け"
         }
